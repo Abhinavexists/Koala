@@ -179,4 +179,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 4. Add tests if applicable
 5. Submit a pull request
 
-(Just a fun practive projext to grab understanding of redis, crawlers and semantic search)
+(Just a fun practice project to gain an understanding of Redis, crawlers, and semantic search)
