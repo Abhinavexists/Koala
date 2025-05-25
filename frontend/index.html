@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐨 Koala Search Engine</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-icon">🐨</span>
+                <span class="brand-text">Koala Search</span>
+            </div>
+            <div class="nav-links">
+                <a href="#search" class="nav-link active" data-page="search">
+                    <i class="fas fa-search"></i>
+                    Search
+                </a>
+                <a href="#websites" class="nav-link" data-page="websites">
+                    <i class="fas fa-globe"></i>
+                    Websites
+                </a>
+                <a href="#analytics" class="nav-link" data-page="analytics">
+                    <i class="fas fa-chart-bar"></i>
+                    Analytics
+                </a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Search Page -->
+        <div id="search-page" class="page active">
+            <div class="container">
+                <div class="search-section">
+                    <h1 class="page-title">Search the Web</h1>
+                    
+                    <!-- Search Form -->
+                    <div class="search-form">
+                        <div class="search-input-group">
+                            <input 
+                                type="text" 
+                                id="search-input" 
+                                class="search-input" 
+                                placeholder="Enter your search query..."
+                                autocomplete="off"
+                            >
+                            <button id="search-btn" class="search-btn">
+                                <i class="fas fa-search"></i>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Popular Queries -->
+                    <div id="popular-queries" class="popular-queries" style="display: none;">
+                        <h3>Popular Searches:</h3>
+                        <div id="popular-queries-list" class="popular-queries-list"></div>
+                    </div>
+
+                    <!-- Search Stats -->
+                    <div id="search-stats" class="search-stats" style="display: none;"></div>
+
+                    <!-- Error Message -->
+                    <div id="error-message" class="error-message" style="display: none;"></div>
+
+                    <!-- Loading Indicator -->
+                    <div id="loading" class="loading" style="display: none;">
+                        <div class="spinner"></div>
+                        <span>Searching...</span>
+                    </div>
+
+                    <!-- Search Results -->
+                    <div id="search-results" class="search-results"></div>
+
+                    <!-- Pagination -->
+                    <div id="pagination" class="pagination" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Websites Page -->
+        <div id="websites-page" class="page">
+            <div class="container">
+                <h1 class="page-title">Website Management</h1>
+                
+                <!-- Add Website Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Add New Website</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="add-website-form" class="website-form">
+                            <div class="form-group">
+                                <label for="website-url">Website URL</label>
+                                <input 
+                                    type="url" 
+                                    id="website-url" 
+                                    class="form-input" 
+                                    placeholder="https://example.com"
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="website-name">Website Name</label>
+                                <input 
+                                    type="text" 
+                                    id="website-name" 
+                                    class="form-input" 
+                                    placeholder="Example Website"
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="website-description">Description (Optional)</label>
+                                <textarea 
+                                    id="website-description" 
+                                    class="form-textarea" 
+                                    placeholder="Brief description of the website..."
+                                    rows="3"
+                                ></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="max-pages">Max Pages</label>
+                                    <input 
+                                        type="number" 
+                                        id="max-pages" 
+                                        class="form-input" 
+                                        value="50" 
+                                        min="1" 
+                                        max="1000"
+                                    >
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="max-depth">Max Depth</label>
+                                    <input 
+                                        type="number" 
+                                        id="max-depth" 
+                                        class="form-input" 
+                                        value="2" 
+                                        min="1" 
+                                        max="10"
+                                    >
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" id="add-website-btn">
+                                <i class="fas fa-plus"></i>
+                                Add Website
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Error Message for Websites -->
+                <div id="websites-error" class="error-message" style="display: none;"></div>
+
+                <!-- Websites List -->
+                <div class="websites-section">
+                    <h2>Your Websites</h2>
+                    <div id="websites-list" class="websites-list">
+                        <div class="empty-state">
+                            <i class="fas fa-globe fa-3x"></i>
+                            <h3>No websites added yet</h3>
+                            <p>Add your first website above to start crawling and searching!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Page -->
+        <div id="analytics-page" class="page">
+            <div class="container">
+                <h1 class="page-title">Analytics Dashboard</h1>
+                
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">Total Searches</div>
+                            <div id="total-searches" class="stat-value">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">Websites</div>
+                            <div id="total-websites" class="stat-value">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">Active Crawls</div>
+                            <div id="active-crawls" class="stat-value">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Queries Chart -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Popular Search Queries</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="popular-queries-analytics" class="popular-queries-analytics">
+                            <div class="empty-state">
+                                <i class="fas fa-chart-bar fa-2x"></i>
+                                <p>No search queries yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/search.js"></script>
+    <script src="js/components/websites.js"></script>
+    <script src="js/components/analytics.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 
