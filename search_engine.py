@@ -1,3 +1,4 @@
+import re
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -17,12 +18,27 @@ class SearchEngine:
         query_vector = self.vectorizer.transform([query])
         scores = cosine_similarity(query_vector, self.doc_vectors).flatten()
         top_indices = scores.argsort()[::-1][:top_k]
-        results = [(self.urls[i], scores[i]) for i in top_indices]
+
+        results = []
+        for i in top_indices:
+            snippet = SearchEngine.search_snippet(self.texts[i], query)
+            results.append((self.urls[i], scores[i], snippet))
         return results
+    
+    def search_snippet(text, query, window_size=30):
+        pattern = re.escape(query.lower())
+        matches = re.search(pattern, text.lower())
+        if matches:
+            start = max(matches.start() - window_size, 0)
+            end = min(matches.end() + window_size, len(text))
+            snippet = text[start:end]
+            return "..." + snippet.strip() + "..."
+        else:
+            return text[:2*window_size] + "..."
     
 if __name__ == "__main__":
     search_engine = SearchEngine('prepared_data.json')
     query = input("Enter your search query: ")
     results = search_engine.search(query)
-    for url, score in results:
-        print(f"{url} - Score: {score:.4f}")
+    for url, score, snippet in results:
+        print(f"{url} - Score: {score:.4f}\nSnippet: {snippet}\n")
